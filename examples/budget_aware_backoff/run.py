@@ -108,7 +108,7 @@ def main():
             break
 
     print(f"\nCompleted {round_num} rounds without ever hitting a real 402.")
-    print(f"(Trial workspace {workspace_id} expires on its own in 1 hour — nothing to clean up.)")
+    print(f"(Trial workspace {workspace_id} expires on its own 24 hours after creation — nothing to clean up.)")
 
 
 if __name__ == "__main__":

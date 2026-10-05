@@ -51,5 +51,5 @@ write was necessary.
 - The result file doesn't have to be a marker — checking for the *real*
   artifact (a report, a processed record) works the same way and doubles as
   your actual output.
-- A free trial workspace caps active sub-keys at 2 — pass
+- A free trial workspace caps active sub-keys at 5 — pass
   `--workspace-id`/`--owner-key` for a funded workspace to run more workers.

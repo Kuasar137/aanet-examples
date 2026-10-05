@@ -19,7 +19,7 @@ simulated) against it. Run it more than once and diff the output — with
 the check, every task is completed exactly once no matter how the workers
 interleave; pass --skip-result-check to see it break.
 
-A free trial workspace caps active sub-keys at 2 (see AGENTS.md at
+A free trial workspace caps active sub-keys at 5 (see AGENTS.md at
 https://aanet.space — it's meant to demonstrate the mechanism, not host a
 real swarm for free), so this defaults to 2 workers. To see the race with
 a bigger swarm, fund a real workspace (POST /workspaces) and pass its
@@ -139,7 +139,7 @@ def worker(base: str, workspace_id: str, key: str, worker_id: int, tasks: list[s
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--base", default="https://aanet.space")
-    parser.add_argument("--workers", type=int, default=2, help="Trial workspaces cap active sub-keys at 2; use --workspace-id/--owner-key with a funded workspace to go higher.")
+    parser.add_argument("--workers", type=int, default=2, help="Trial workspaces cap active sub-keys at 5; use --workspace-id/--owner-key with a funded workspace to go higher.")
     parser.add_argument("--tasks", type=int, default=8)
     parser.add_argument("--rounds", type=int, default=3, help="Each worker re-scans the full task list this many times, to exercise the bug reliably.")
     parser.add_argument("--workspace-id", default=None, help="Use an existing (funded) workspace instead of creating a trial.")
@@ -156,7 +156,7 @@ def main():
     else:
         print(f"Creating a trial workspace on {args.base} ...")
         workspace_id, owner_key = create_trial_workspace(args.base)
-        print(f"  workspace_id={workspace_id} (trial — capped at 2 active sub-keys)")
+        print(f"  workspace_id={workspace_id} (trial — capped at 5 active sub-keys)")
 
     task_names = [f"item-{i}" for i in range(args.tasks)]
     put_file(args.base, workspace_id, owner_key, "tasks.md", "\n".join(task_names) + "\n")
@@ -193,7 +193,7 @@ def main():
         print(f"DUPLICATE COMPLETIONS: {duplicates} — the race happened.")
     else:
         print(f"Every one of {len(task_names)} tasks was completed exactly once.")
-    print(f"\n(Trial workspace {workspace_id} expires on its own in 1 hour — nothing to clean up.)")
+    print(f"\n(Trial workspace {workspace_id} expires on its own 24 hours after creation — nothing to clean up.)")
 
 
 if __name__ == "__main__":
