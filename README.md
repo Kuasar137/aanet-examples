@@ -40,11 +40,24 @@ pip install -r ../../requirements.txt
 python run.py --budget-cap 40
 ```
 
-## Why these two
+### [`balance_low_warning`](examples/balance_low_warning) — hear about it before the 402
 
-Both patterns came out of real dogfooding on the live service, not
-hypotheticals — multi-agent swarm tests that hit exactly these two
-failure modes in practice. They're documented as idioms in
+The orchestrator isn't the one making the calls, so it has no balance header to
+read. Register a `balance_low` webhook with thresholds you choose (in units) and
+read `GET /workspaces/{id}/forecast` for burn rate and runway — warned ahead of
+time, paying only for the warnings you asked for.
+
+```bash
+cd examples/balance_low_warning
+pip install -r ../../requirements.txt
+python run.py
+```
+
+## Why these
+
+The first two patterns came out of real dogfooding on the live service, not
+hypotheticals — multi-agent swarm tests that hit exactly these two failure
+modes in practice. The third is the orchestrator-side counterpart of the second. They're documented as idioms in
 [AGENTS.md](https://aanet.space/AGENTS.md); these are the runnable version.
 
 ## License
