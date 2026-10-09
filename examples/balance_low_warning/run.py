@@ -91,7 +91,8 @@ def main():
     fc = resp.json()
     print(f"Forecast: balance={fc['balance']}")
     for w in fc["windows"]:
-        print(f"  {w['window']:>3}: {w['units_per_hour']:>10} units/h  runway_hours={w['runway_hours']}")
+        print(f"  {w['window']:>3}: {w['units_per_hour']:>10} units/h  runway_hours={w['runway_hours']}"
+              f"  (measured over {w['covered_seconds']} s{', shortened to workspace age' if w['shortened'] else ''})")
     print("\n(The trial workspace expires on its own 24 hours after creation — nothing to clean up.)")
 
 

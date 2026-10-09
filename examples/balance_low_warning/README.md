@@ -43,7 +43,7 @@ Waiting for balance_low deliveries ...
 2 warning(s) fired for 2 thresholds (one per threshold crossed).
 
 Forecast: balance=792
-   1h:    12240.0 units/h  runway_hours=0.06
+   1h:    12240.0 units/h  runway_hours=0.06  (measured over 60 s, shortened to workspace age)
 ```
 
 With the default receiver (`example.com`) the POST is answered with a non-2xx, so the
@@ -52,7 +52,8 @@ threshold. Point `--webhook-url` at a real receiver to see the signed payload.
 
 The forecast looks extreme here because the whole workspace is about a minute old: a
 window is shortened to the workspace's age (minimum one minute), so a short burst
-extrapolates to a big hourly rate. In a long-running workspace the 24h and 7d windows
+extrapolates to a big hourly rate. The response says so itself: every window carries
+`measured_since`, `covered_seconds` and `shortened`, plus `as_of` for the whole answer. In a long-running workspace the 24h and 7d windows
 smooth this out.
 
 ## What to change for your own use case
